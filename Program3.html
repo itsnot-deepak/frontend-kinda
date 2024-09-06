@@ -1,0 +1,96 @@
+<html>
+    <head>
+        <title>calculator</title>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+    </head>
+    <body ng-app = "Myapp">
+        <div ng-controller="calculator">
+            <h2>Simple calculator using ANgular JS</h2><br>
+       
+            Enter first number:<input type="number" autofocus ng-model="n1" id="n11"><br><br>
+
+            Enter second number:<input type="number" ng-model="n2" id="n22"><br><br>
+           Enter Operator: <select ng-model="operator" id="cal" >
+                <option value=""> select the operator </option>
+                <option value="+">Addition</option>
+                <option value="-">Subtraction</option>
+                <option value="*">Multiplication</option>
+                <option value="/">Division</option>
+            </select>
+            <br><br>
+            <input type="button" value="Calculate" ng-click="calculate()"><br><br>
+            <p id="res" style="display: none">
+            {{n1+" "+operator+" "+n2+"="+result}}
+            </p>
+           
+        </div>
+            
+        </body>
+    <script>
+         var app = angular.module("Myapp",[]);
+         app.controller("calculator", function($scope) {
+            $scope.result = 0;
+            $scope.calculate=function(){
+
+                if(document.getElementById("n11").value==""){
+                        alert("Enter first number");
+                        document.getElementById("n11").value.focus();
+                        return false;
+
+                    }
+                    else if(document.getElementById("n22").value==""){
+                        alert("Enter second number");
+                        document.getElementById("n22").focus();
+                        return false;
+
+                    }
+                    else if(document.getElementById("cal").value==""){
+                        alert("Select an arithmetic operator");
+                        document.getElementById("cal").focus();
+                        return false;
+
+                    }
+
+                    else
+                    {
+                    switch($scope.operator){
+                    
+                
+                    case "+":
+                        $scope.result=(parseFloat($scope.n1)+parseFloat($scope.n2)).toFixed(3);
+                        document.getElementById("res").style.display="block";
+                        document.getElementById("res").value=$scope.result;
+
+                        break;
+                    case "-":
+                    $scope.result=(parseFloat($scope.n1)-parseFloat($scope.n2)).toFixed(3);
+                        document.getElementById("res").style.display="block";
+                        document.getElementById("res").value=$scope.result;
+
+                        break;
+                    case "*":
+                    $scope.result=(parseFloat($scope.n1)*parseFloat($scope.n2)).toFixed(3);
+                        document.getElementById("res").style.display="block";
+                        document.getElementById("res").value=$scope.result;
+
+                        break;
+                    case "/":
+                        if($scope.n2==0){
+                            alert("Enter non zero number");
+                            document.getElementById("n22").focus();
+                            return false;
+                        }
+                        else{
+                            $scope.result=(parseFloat($scope.n1)/parseFloat($scope.n2)).toFixed(3);
+                        document.getElementById("res").style.display="block";
+                        document.getElementById("res").value=$scope.result;
+
+                        break;
+                        }
+                }}
+            }
+        });
+                       
+    </script>
+        
+              

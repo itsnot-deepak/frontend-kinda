@@ -1,0 +1,18 @@
+<html>
+    <body>
+        <h2>Students registered to this course </h2>
+        <table border="1">
+            <tr>
+                <th>Student Name </th>
+                <th> Student USN</th>
+                <th>Sem</th>
+            </tr>
+            {% for student in student_list%}
+                <tr>
+                    <td>{{student.Name}}</td>
+                    <td>{{student.Usn}}</td>
+                    <td align="center">{{student.Sem}}</td>
+                </tr>{%endfor%}
+        </table>
+    </body>
+</html>

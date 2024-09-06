@@ -1,0 +1,88 @@
+<html>
+    <head>
+        <title>CRUD program</title>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+    </head>
+    <body ng-app="Myapp1">
+        <div ng-controller="myctrl">
+            <h1>CRUD PROGRAM</h1>
+            <input type="text" placeholder="Enter your name" ng-model="name" id="myname">
+            <input type="text" placeholder="Enter your email" ng-model="email" id="myemail">
+            <input type="button" value="Create" ng-click="create()">
+            <ul>
+                <li ng-repeat="user in users ">
+                    <span ng-show="!user.editing">{{user.name}}</span>
+                    <input ng-show="user.editing" ng-model="user.name" id="name">
+                    <span ng-show="!user.editing">{{user.email}}</span>
+                    <input ng-show="user.editing" ng-model="user.email" id="email">
+                    <input type="button" value="read" ng-click="read(user)">
+                    <input type="button" value="update" ng-click="update(user)">
+                    <input type="button" value="delete" ng-click="delete(user)">
+                </li>
+            </ul>
+        </div>
+        <script>
+            var a=angular.module("Myapp1",[])
+            a.controller("myctrl",function($scope){
+                $scope.users=[];
+                $scope.create=function(){
+                    if($scope.name==null){
+                        alert("enter a name ");
+                        document.getElementById("myname").focus();
+                        return false
+                    }
+                    else if($scope.email==null){
+                        alert("enter a email");
+                        document.getElementById("myemail").focus();
+                        return false;
+                    }
+                    else{
+                        var userdata={ "name":$scope.name,"email":$scope.email, "editing":false};
+                        if(userdata.name==""){
+                            alert("please enter your name ");
+                            document.getElementById("myname").focus();
+                            return false;}
+                        else if(userdata.email==""){
+                            alert("enter an email");
+                            document.getElementById("myemail").focus();
+                            return false;
+                        }
+                        else{
+                            $scope.users.push(userdata);
+                            $scope.name=""
+                            $scope.email=""
+                        }
+                    }
+                }
+                $scope.read=function(userdets){
+                    userdets.editing=true;
+                }
+                $scope.update=function(userdets){
+                    if(userdets.name==""){
+                            alert("please enter your name ");
+                            document.getElementById("myname").focus();
+                            return false;}
+                    else if(userdets.email==""){
+                            alert("enter an email");
+                            document.getElementById("myemail").focus();
+                            return false;
+                        }
+                    else{
+                        userdets.editing=false;
+
+                    }
+                }
+                $scope.delete=function(userdets){
+                    var doublecheck=confirm("are you sure u want to remove this user"+userdets.name)
+                    if(doublecheck==true){
+                        var idx=$scope.users.indexOf(userdets);
+                        $scope.users.splice(idx,1);
+                    }
+                    else{
+                        alert("you chose not to remove this user")
+                    }
+                }
+            });
+        </script>
+    </body>
+</html>

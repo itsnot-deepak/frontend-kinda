@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<head>
+</head>
+<body>
+    <h2>Course Enrollement form for students</h2>
+    <form method="post" action="">
+        {%csrf_token%}
+        student name:&emsp;
+        <select name="sname" required>
+            <option value=""> Select a student</option>
+            {% for student in students %}
+                <option value="{{student.id}}">{{student.Name}}</option>
+            {%endfor%}
+        </select><br><br>
+        course name:&emsp;
+        <select name="cname" required>
+            <option value=""> Select a Course</option>
+            {% for course in courses %}
+                <option value="{{course.id}}">{{course.C_name}}</option>
+            {%endfor%}
+        </select><br><br>
+        <input type="submit" value="Enroll">
+    </form>
+</body>
+</html>

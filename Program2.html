@@ -1,0 +1,61 @@
+<html>
+    <head>
+        <title>Shopping Cart List</title>
+        <script src="angular.min.js"></script>
+
+    </head>
+
+    <body ng-app="myApp2">
+        <h2>Shopping List</h2>
+        <div ng-controller="Shopping">
+            <ol>
+                <li ng-repeat="thing in shoppingItems">{{thing}}</li>
+            </ol>
+            <br>
+
+            Enter an item to add : <input type="text" id="item_name" ng-model="itemname"/>
+            <input type="button" value="Add" ng-click="addItem()" /><br><br>
+
+            Select an item to remove :
+            <select id="set_item" ng-model="selected_item" ng-options="eatary for eatary in shoppingItems">
+
+            </select>
+            <input type="button" value="Remove" ng-click="removeItem()" />
+        </div>
+    </body>
+</html>
+
+<script>
+    var hhr=angular.module("myApp2", []);
+    hhr.controller("Shopping", function($scope) {
+        $scope.shoppingItems=["Tamarind","Ghee","Banana"];
+        $scope.addItem=function(){
+            if($scope.itemname && $scope.shoppingItems.indexOf($scope.itemname)== -1)
+            {
+                $scope.shoppingItems.push($scope.itemname);
+                $scope.itemname=""
+            }
+
+            else
+            {
+                if($scope.itemname)
+                    alert("This item is already added to your shopping list.");
+                else
+                    alert("Please enter an item to add.");
+            }
+        }
+
+        $scope.removeItem=function(){
+
+            if($scope.shoppingItems.indexOf($scope.selected_item)== -1)
+                alert("Please select an item to remove.");
+            else
+            {
+                var index=$scope.shoppingItems.indexOf($scope.selected_item);
+                $scope.shoppingItems.splice(index,1);
+                $scope.selected_item=""
+            }
+
+        }
+    });
+</script>

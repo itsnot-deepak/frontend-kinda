@@ -1,0 +1,51 @@
+<html>
+    <head>
+        <title>Student Table</title>
+        <style type="text/css">
+            .numstuds,#genbtn
+            {
+                font-family: verdana;
+                font-size: 17px;
+            }
+        </style>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+    </head>
+    <BODY ng-app="studDetails">
+        <h2>Display student details and their cgpa</h2>
+        <div ng-controller="studDetailsCntrlr">
+         <input class="numstuds" placeholder="Enter #(students)" ng-model="num" />&emsp;
+         <input id="genbtn" type="button" value="Generate" ng-click="generateData()"/><br><br>
+         <table width="200px" border="1" ng-show="studentData.length>0">
+            <tr>
+                <th>sl#</th>
+                <th>Name</th>
+                <th>cgpa</th>
+            </tr>
+            <tr ng-repeat="student in studentData">
+                <td align="center">{{student.slno}}</td>
+                <td>{{student.Name}}</td>
+                <td align="center">{{student.cgpa}}</td>
+            </tr>
+</table><br><br>
+#(students)={{studentData.length}}
+</div>
+</BODY>
+</html>
+<script>
+    var studDets=angular.module("studDetails",[]);
+    studDets.controller("studDetailsCntrlr",function($scope){
+        $scope.generateData=function()
+        {
+            $scope.studentData=[];
+            for(var h=1;h<=$scope.num; h++)
+            {
+                var student={
+                    "slno":h,
+                    "Name":"Student."+h,
+                    "cgpa":(Math.random() * 10).toFixed(2)
+                }
+                $scope.studentData.push(student);
+            }
+        }
+    });
+</script>
